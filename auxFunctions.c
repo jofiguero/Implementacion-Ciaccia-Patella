@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "structures.c"
 
-<<<<<<< HEAD
-int main(){
-    printf("hola\n");
-    return 0;
-=======
-double dist(double p, double q){
-    return abs(p-q)
+double dist_entry(Entry n, Entry m){
+    double p = n.p;
+    double q = m.p;
+    return abs(p-q);
+}
+
+double dist (double p, double q){
+    return abs(p-q);
 }
 
 void put(Node *n, double p, double cr, Node *a){
-    Entry *place = *(n.List) + sizeof(Entry)*count;
-    Entry e = {p,cr,a}
-    *place = e;
->>>>>>> c98dca86e570cd7d712e372b7cae70a45bbb61cd
+    int place = n->count +1;
+    n->list[place].p = p;
+    n->list[place].cr = cr;
+    n->list[place].a = a;
 }
