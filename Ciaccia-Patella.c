@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void CP(double *point, int count, int B){
+void CP(Point *point, int count, int B){
     //Si |P|<= B, creamos un arbol t, insertamos los puntos y lo retornamos
     if(count <= B){
         Entry *list =(Entry *) malloc(sizeof(Entry)*B);

@@ -2,12 +2,21 @@
 #include <stdlib.h>
 
 typedef struct{
-    Entry *list;
+    Node *root;
+} Tree;
+
+typedef struct{
+    double x;
+    double y;
+}Point;
+
+typedef struct{
+    Entry *List;
     int count;
 } Node;
 
 typedef struct {
-    double p;
+    Point p;
     double cr;
     Tree *a;
 } Entry;
