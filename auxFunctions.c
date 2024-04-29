@@ -1,15 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "structures.c"
 
 double dist_entry(Entry n, Entry m){
-    double p = n.p;
-    double q = m.p;
-    return abs(p-q);
+    Point p = n.p;
+    Point q = m.p;
+    dif_x = p.x - q.x;
+    dif_y = p.y - q.y;
+    return sqrt(dif_x**2+dif**2);
 }
 
-double dist (double p, double q){
-    return abs(p-q);
+double dist (Point p, Point q){
+    dif_x = p.x - q.x;
+    dif_y = p.y - q.y;
+
+    return sqrt(dif_x**2+dif**2);
 }
 
 void put(Node *n, double p, double cr, Node *a){
