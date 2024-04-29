@@ -18,16 +18,11 @@ typedef struct{
 typedef struct {
     Point p;
     double cr;
-    Node *a;
+    Tree *a;
 } Entry;
 
 typedef struct{
     int sample;
     double *point;
     int count;
-} Samples;
-
-int main(){
-    printf(siezeof(Entry))
-    return 0;
-}
+} Conjunto_sample;
