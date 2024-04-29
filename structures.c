@@ -1,6 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct{
+    Node *root;
+} Tree;
+
 typedef struct{
     Entry *List;
-    int limit;
+    int count;
 } Node;
 
 typedef struct {
@@ -8,3 +15,8 @@ typedef struct {
     double cr;
     Node *a;
 } Entry;
+
+int main(){
+    printf(siezeof(Entry))
+    return 0;
+}
