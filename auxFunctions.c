@@ -13,7 +13,7 @@ double dist (double p, double q){
 }
 
 void put(Node *n, double p, double cr, Node *a){
-    int place = n->count +1;
+    int place = n->count +2;
     n->list[place].p = p;
     n->list[place].cr = cr;
     n->list[place].a = a;

@@ -2,21 +2,21 @@
 #include <stdlib.h>
 
 typedef struct{
-    Node *root;
-} Tree;
-
-typedef struct{
-    Entry *List;
+    Entry *list;
     int count;
 } Node;
 
 typedef struct {
     double p;
     double cr;
-    Node *a;
+    Tree *a;
 } Entry;
 
+typedef struct{
+    Node *root;
+} Tree;
+
 int main(){
-    printf(siezeof(Entry))
+    printf("%lu",sizeof(Entry));
     return 0;
 }
