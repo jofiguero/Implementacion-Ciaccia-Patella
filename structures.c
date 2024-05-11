@@ -22,6 +22,11 @@ typedef struct {
 } Entry;
 
 typedef struct{
+    Point p;
+    double sample;
+} Par_sample
+
+typedef struct{
     int sample;
     double *point;
     int count;

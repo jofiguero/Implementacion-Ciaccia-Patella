@@ -24,3 +24,14 @@ void put(Node *n, Point p, double cr, Tree *a){
     n->list[place].cr = cr;
     n->list[place].a = a;
 }
+
+Point closer(Point *samples, int k, Point punto){
+    double min_dif = 3;
+    for(int i = 0; i<k; i++){
+        dif = dist(punto,*(samples[i]));
+        if (dif<min_dif){
+            min_dif = dif;
+        }
+    }
+    return min_dif;
+}
