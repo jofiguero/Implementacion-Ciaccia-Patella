@@ -22,12 +22,10 @@ typedef struct {
 } Entry;
 
 typedef struct{
-    Point p;
-    double sample;
-} Par_sample
+    Node *root;
+} Tree;
 
-typedef struct{
-    int sample;
-    double *point;
-    int count;
-} Conjunto_sample;
+int main(){
+    printf("%lu",sizeof(Entry));
+    return 0;
+}

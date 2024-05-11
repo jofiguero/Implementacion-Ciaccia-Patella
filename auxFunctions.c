@@ -18,8 +18,8 @@ double dist (Point p, Point q){
     return sqrt(dif_x**2+dif**2);
 }
 
-void put(Node *n, Point p, double cr, Tree *a){
-    int place = n->count +1;
+void put(Node *n, double p, double cr, Node *a){
+    int place = n->count +2;
     n->list[place].p = p;
     n->list[place].cr = cr;
     n->list[place].a = a;
