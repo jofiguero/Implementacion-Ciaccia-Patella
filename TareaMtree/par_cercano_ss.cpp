@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "aux_functions_cp.cpp"
+#include "cp.cpp"
 
 
 using namespace std;

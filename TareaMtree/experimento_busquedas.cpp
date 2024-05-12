@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <random>
 #include "busqueda.cpp"
-#include "ss.cpp"
 using namespace std;
 
 set<Point> crea_puntos(int cantidad){
