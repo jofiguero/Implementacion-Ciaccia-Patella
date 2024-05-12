@@ -125,7 +125,7 @@ void cr(Node *node){
 
 
 /*Esta funcion recibe un puntero a un arbol, un punto que es el punto raiz de dicho arbol, un vector de AS y una altura h*/
-void SubarbolesValidos(Mtree *ptr_arbol, Point sample, vector<AS*> *contenedor,vector<Point> *F,int h){
+void SubarbolesValidos(Mtree *ptr_arbol, Point sample, vector<AS*>& contenedor,vector<Point>& F,int h){
     if(ptr_arbol ==NULL || altura(ptr_arbol)<h){
         return;
     }else{
@@ -133,8 +133,8 @@ void SubarbolesValidos(Mtree *ptr_arbol, Point sample, vector<AS*> *contenedor,v
             /*Se crea un AS, se añade al vector de AS y retorno*/
             Mtree *newArbol = new Mtree(ptr_arbol->root);
             AS* newas = new AS(sample, newArbol);
-            contenedor->push_back(newas);
-            F->push_back(sample);
+            contenedor.push_back(newas);
+            F.push_back(sample);
             return;
             
         }else{
@@ -144,7 +144,6 @@ void SubarbolesValidos(Mtree *ptr_arbol, Point sample, vector<AS*> *contenedor,v
                     SubarbolesValidos(entrada.a,entrada.p,contenedor,F,h);
                 }
             }
-            return;
         }
     }
     
@@ -206,12 +205,12 @@ void ImprimeArbol3(Mtree t1) {
     //Printear el segundo nivel
     printf("Primer nivel:\n");
     for(Entry entrada: t1.root->entries){
-        printf("x = %f,y = %f,a = %p,cr = %f\n",entrada.p.x,entrada.p.y,entrada.a,entrada.cr);
+        printf("%f,%f\n",entrada.p.x,entrada.p.y);
     }
     printf("Segundo nivel:\n");
     for(Entry entrada: t1.root->entries){
         for(Entry entrada: (*entrada.a).root->entries){
-            printf("x = %f,y = %f,a = %p,cr = %f\n",entrada.p.x,entrada.p.y,entrada.a,entrada.cr);
+            printf("%f,%f\n",entrada.p.x,entrada.p.y);
         }
         printf(";\n");
 
@@ -222,7 +221,7 @@ void ImprimeArbol3(Mtree t1) {
         for(Entry entrada: (*entrada.a).root->entries){
             if(entrada.a !=NULL){
                 for(Entry entrada: (*entrada.a).root->entries ){
-                    printf("x = %f,y = %f,a = %p,cr = %f\n",entrada.p.x,entrada.p.y,entrada.a,entrada.cr);
+                    printf("%f,%f\n",entrada.p.x,entrada.p.y);
                 }
                 printf(";\n");
             }

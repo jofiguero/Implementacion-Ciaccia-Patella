@@ -2,7 +2,7 @@
 #include <stdio.h>
 using namespace std;
 #include <unordered_set>
-//#include "ss_opt.cpp"
+#include "ss_opt.cpp"
 
 
 tuple < int , set <Point> >buscar(Mtree tree, Query Q){
@@ -11,7 +11,7 @@ tuple < int , set <Point> >buscar(Mtree tree, Query Q){
     if (isLeaf(tree)){
         set<Entry>::iterator itr;
         for (itr = tree.root->entries.begin(); itr!= tree.root->entries.end(); itr++) {
-            if (dist(itr->p, Q.q) <= Q.r){
+            if (dist_eu(itr->p, Q.q) <= Q.r){
                 s.insert(itr->p);
             }
         }
@@ -19,7 +19,7 @@ tuple < int , set <Point> >buscar(Mtree tree, Query Q){
     else {
         set<Entry>::iterator itr2;
         for (itr2 = tree.root->entries.begin(); itr2!= tree.root->entries.end(); itr2++) {
-            if (dist(itr2->p, Q.q) <= itr2->cr + Q.r){
+            if (dist_eu(itr2->p, Q.q) <= itr2->cr + Q.r){
                 set <Point> s2;
                 int n2;
                 tie(n2, s2) = buscar(*itr2->a, Q);

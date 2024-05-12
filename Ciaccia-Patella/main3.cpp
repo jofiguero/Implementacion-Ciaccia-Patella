@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "Aux-Clases.cpp"
 #include "Aux-Functions.cpp"
-#include "Ciaccia-Patella.cpp"
+#include "chacha.cpp"
 #include <set>
 #include <vector>
 #include <algorithm>
@@ -32,15 +32,14 @@ vector<Point> generateRandomPoints(int numPoints) {
 
 
 int main(){
-    vector<Point> setp = generateRandomPoints(20000); // Suponiendo que esta función genera 20 puntos aleatorios
+    vector<Point> setp = generateRandomPoints(0); // Suponiendo que esta función genera 20 puntos aleatorios
     Mtree *m = CP(setp); // Construir el árbol a partir del conjunto de puntos generado
 
-    ImprimeArbol3(*m);
-    // Test: ver todas las entradas en el nodo raíz
-    set<Entry>& entradas = m->root->entries;
-    cout << "Size of entries in root node: " << entradas.size() << endl;
-
-
+    if (m==NULL){
+        printf("Te pillamos po compadre\n");
+    }else{
+        ImprimeArbol1(*m);
+    }
     // Imprimir las entradas en el nodo raíz
     printf("Llegue al final del programa!!\n");
     return 0;

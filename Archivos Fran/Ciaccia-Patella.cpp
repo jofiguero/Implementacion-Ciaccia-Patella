@@ -50,11 +50,7 @@ Mtree *CP(vector<Point>& setp){
             Point mas_cercano = closer(F,punto);
             for (Conjunto_sample *conjunto: conjuntos) {
                 if (conjunto->sample == mas_cercano) {
-                    auto it = std::find(conjunto->conjunto.begin(), conjunto->conjunto.end(), punto);
-                    if (it == conjunto->conjunto.end()) {
-                        conjunto->agregarPunto(punto);
-                    }
-                    
+                    conjunto->agregarPunto(punto);
                 }
             }
         }
@@ -65,11 +61,12 @@ Mtree *CP(vector<Point>& setp){
             // Si el tamaño del conjunto es menor que b
             if(conjunto->conjunto.size() < b) {
                 // Eliminamos su representante de F
-                F.erase(find(F.begin(), F.end(), conjunto->sample));
+                Point representante = conjunto->sample;
+                F.erase(find(F.begin(), F.end(), representante));
                 // Para cada punto en el conjunto a desmembrar
                 for(Point& punto : conjunto->conjunto) {
                     // Buscamos el sample más cercano en F y lo introducimos a su conjunto
-                    Point mas_cercano = closer(F,punto);
+                    Point mas_cercano = closer(F, punto);
                     for(auto& conjuntoN : conjuntos) {
                         if(conjuntoN->sample == mas_cercano && conjuntoN != conjunto) {
                             conjuntoN->agregarPunto(punto);
@@ -87,10 +84,11 @@ Mtree *CP(vector<Point>& setp){
     vector<AS*> ASs;
     //Paso recursivo
     
+
     for(Conjunto_sample *conjunto: conjuntos){
-        //Point sample = conjunto->sample;
-        //Mtree* arbol = CP(conjunto->conjunto);
-        AS * arbolSample = new AS(conjunto->sample,CP(conjunto->conjunto));
+        Point sample = conjunto->sample;
+        Mtree* arbol = CP(conjunto->conjunto);
+        AS * arbolSample = new AS(sample,arbol);
         ASs.push_back(arbolSample);
     };
     //Reordenamiento de raices
@@ -99,8 +97,8 @@ Mtree *CP(vector<Point>& setp){
             ASs.erase(find(ASs.begin(), ASs.end(), as));
             F.erase(find(F.begin(), F.end(), as->sample));
             for(Entry entrada: as->arbol->root->entries){
-                //Mtree *newTree = new Mtree(entrada.a->root);
-                AS*  newAS = new AS(entrada.p,entrada.a);
+                Mtree *newTree = new Mtree(entrada.a->root);
+                AS*  newAS = new AS(entrada.p,newTree);
                 ASs.push_back(newAS);
                 F.push_back(entrada.p);
             }
@@ -108,7 +106,6 @@ Mtree *CP(vector<Point>& setp){
     }
     //Calculamos h para balancear
     int h = alturaMinima(ASs);
-    printf("La altura es %d\n",h);
     //Inicializamos Tprima (será el representante de T')
     vector<AS*> Tprima;
     //Etapa de balanceamiento
@@ -118,7 +115,7 @@ Mtree *CP(vector<Point>& setp){
         }else{
             Point representante = as->sample;
             F.erase(find(F.begin(), F.end(), representante));
-            SubarbolesValidos(as->arbol, as->sample, &Tprima, &F, h);
+            SubarbolesValidos(as->arbol, as->sample, Tprima, F, h);
         }
     }
     Mtree* Tsup = CP(F);
@@ -136,6 +133,7 @@ Mtree *CP(vector<Point>& setp){
     }
     //Rellenamos los radios cobertores
     cr(Tsup->root);
+
     return Tsup;
 }
 

@@ -1,18 +1,45 @@
+#include <iostream>
 #include <stdio.h>
-#include <stdlib.h>
-#include "Aux-Clases.cpp"
-#include "Aux-Functions.cpp"
+#include <initializer_list>
+#include <set>
+#include <time.h>
+#include <ctime>
+#include <cstdlib>
+#include <random>
 #include "Ciaccia-Patella.cpp"
 #include "busqueda.cpp"
-#include <set>
-#include <vector>
-#include <algorithm>
-#include <random>
-#include <cmath>
+using namespace std;
 
-using namespace std; 
-vector<Point> crea_puntos(int cantidad){
-    vector<Point> C;
+
+void testOutputHoja(set<Point> c1){
+    Entry e = OutputHoja(c1);
+    std::cout<< "La entrada tiene punto: ("<<e.p.x<<","<<e.p.y<<")"<<endl;
+    std::cout<< "La entrada tiene cr: "<<e.cr<<endl;
+    std::cout << "el nodo tiene "<< e.a->root->entries.size() <<" entradas"<< endl;
+    set<Entry>::iterator h;
+    for (h=e.a->root->entries.begin(); h!=e.a->root->entries.end();h++){
+        std::cout<<endl;
+        std::cout << "La entrada del nodo tiene punto: ("<<h->p.x<<","<<h->p.y<<")"<<endl;
+        if(h->cr == NULL){
+            std::cout << "La entrada del nodo tiene cr bien definido"<< endl;
+        }
+        else{
+            std::cout << "La entrada del nodo tiene cr MAL definido"<< endl;
+            break;
+        }
+        if(h->a == NULL){
+            std::cout << "La entrada del nodo tiene a bien definido"<< endl;
+        }
+        else{
+            std::cout << "La entrada del nodo tiene a MAL definido"<< endl;
+            break;
+        }
+    }
+    std::cout << endl;
+}
+
+set<Point> crea_puntos(int cantidad){
+    set<Point> C;
     const long max_rand = 1000000L;
     double lower_bound = 0;
     double upper_bound = 1;
@@ -22,33 +49,17 @@ vector<Point> crea_puntos(int cantidad){
     while(C.size()<cantidad){ 
     // Getting a random double value
         double variable = unif(re);
-        C.push_back(*new Point(variable,0));
+        C.insert(*new Point(variable,0));
     }
     return C;
 }
-vector<Point> generateRandomPoints(int numPoints) {
-    vector<Point> points;
 
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_real_distribution<double> dis(0.0, 1.0);
-
-    while (points.size() < numPoints) {
-        Point p;
-        p.x = dis(gen);
-        p.y = dis(gen);
-        points.push_back(p);
-    }
-
-    return points;
-}
 void test_correctitud(int n){
     cout << "Comienza el test para 2^"<<n<<endl;
-    vector<Point> p = generateRandomPoints(pow(2,n));
+    set<Point> p = crea_puntos(pow(2,n));
     unsigned inicio, final;
     inicio = clock();
-    Mtree *ptr_m = CP(p);
-    Mtree m = *ptr_m;
+    Mtree m = AlgoritmoSS(p);
     final = clock();
     double tiempo = (double(final-inicio)/CLOCKS_PER_SEC);
     cout <<"    Un arbol con 2^"<<n<<"puntos tarda "<<tiempo<<" en crearse"<<endl;
@@ -58,8 +69,8 @@ void test_correctitud(int n){
     tie(accesos_nodo, encontrados) = buscar(m,Query{pq,0.02});
     set<Point> control;
     set<Point>::iterator h;
-    for (Point punto: p){
-        if (dist(pq,punto)<=0.02){
+    for (h = p.begin(); h != p.end(); h++){
+        if (dist_eu(pq,*h)<=0.02){
           control.insert(*h);
         }
     }
@@ -71,16 +82,9 @@ void test_correctitud(int n){
         cout << "Fallo el test para 2^"<<n<<endl;
     }
 }
-tuple<int , double> test_busqueda(Mtree tree, Point p){
-    int accesos_nodo;
-    set<Point> encontrados;
-    unsigned inicio, final;
-    inicio = clock();
-    tie(accesos_nodo, encontrados) = buscar(tree, Query{p,0.02});
-    final = clock();
-    double tiempo = (double(final-inicio)/CLOCKS_PER_SEC);
-    return make_tuple(accesos_nodo, tiempo);
-}
+
+
+
 double media(set<double> s){
     double total = 0;
     for(double n : s){
@@ -96,6 +100,17 @@ double desviacion(set<double> s){
         numerador += pow(abs(n - prom),2);
     }
     return sqrt(numerador/s.size());
+}
+
+tuple<int , double> test_busqueda(Mtree tree, Point p){
+    int accesos_nodo;
+    set<Point> encontrados;
+    unsigned inicio, final;
+    inicio = clock();
+    tie(accesos_nodo, encontrados) = buscar(tree, Query{p,0.02});
+    final = clock();
+    double tiempo = (double(final-inicio)/CLOCKS_PER_SEC);
+    return make_tuple(accesos_nodo, tiempo);
 }
 
 void test_100_busquedas(Mtree tree){
@@ -127,20 +142,34 @@ void test_100_busquedas(Mtree tree){
     cout<<"    Los tiempos tienen una desviacion estandar de : "<< desviacion_tiempo<< endl;
     cout<<"    Los tiempos tienen una media de : "<< media_tiempo<< endl;
 }
+
 void test_arbol(int n){
     cout << "Comienza el test para 2^"<<n<<endl;
-    vector<Point> puntos = generateRandomPoints(pow(2,n));
+    set<Point> puntos = crea_puntos(pow(2,n));
     unsigned inicio, final;
     inicio = clock();
-    Mtree *tree = CP(puntos);
+    Mtree tree = AlgoritmoSS(puntos);
     final = clock();
     double tiempo = (double(final-inicio)/CLOCKS_PER_SEC);
     cout <<"    Un arbol con 2^"<<n<<"puntos tarda "<<tiempo<<" en crearse"<<endl;
-    test_100_busquedas(*tree);
+    test_100_busquedas(tree);
     cout << "Finaliza el test para 2^"<<n<<endl;
 }
-int main(){
-    test_arbol(25);
+
+int main6(){
+    set<Point> p = crea_puntos(300);
+    Mtree m = AlgoritmoSS(p);
+    set<Entry>::iterator h;
+    std::cout << "primer nodo:"<<endl;
+    set<Entry> e = m.root->entries;
+    for (h = e.begin(); h != e.end(); h++){
+        std::cout<< "("<<h->p.x<<","<<h->p.y<<") ";  
+    }
+    std::cout << "segundo nodo:"<<endl;
+    set<Entry> g = m.root->entries.begin()->a->root->entries;
+    for (h = g.begin(); h != g.end(); h++){
+        std::cout<< "("<<h->p.x<<","<<h->p.y<<") ";  
+    }
     return 0;
 }
 int mainfalso(){
@@ -149,4 +178,9 @@ int mainfalso(){
     }
     return 0;
 }
-
+int main(){
+    test_arbol(8);
+    //test_correctitud(8);
+    //test_correctitud(9);
+    return 0;
+}

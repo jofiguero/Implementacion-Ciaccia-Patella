@@ -34,7 +34,7 @@ class Entry{
     double cr;
     class Mtree *a;
     Entry(Point p, double cr, Mtree *a): p(p), cr(cr), a(a){}
-    Entry(Point p): p(p), cr(0), a(NULL){}
+    Entry(Point p): p(p), cr(NULL), a(NULL){}
     Entry(){}
 };
 inline bool operator<(const Entry& lhs, const Entry& rhs){
