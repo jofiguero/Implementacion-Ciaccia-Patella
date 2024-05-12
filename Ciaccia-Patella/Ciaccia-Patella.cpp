@@ -108,7 +108,7 @@ Mtree *CP(vector<Point>& setp){
     }
     //Calculamos h para balancear
     int h = alturaMinima(ASs);
-    printf("La altura es %d\n",h);
+    //printf("La altura es %d\n",h);
     //Inicializamos Tprima (será el representante de T')
     vector<AS*> Tprima;
     //Etapa de balanceamiento

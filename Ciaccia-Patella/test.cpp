@@ -139,11 +139,11 @@ void test_arbol(int n){
     test_100_busquedas(*tree);
     cout << "Finaliza el test para 2^"<<n<<endl;
 }
-int main(){
-    test_arbol(25);
+int mainfalso(){
+    test_arbol(16);
     return 0;
 }
-int mainfalso(){
+int main(){
     for (int i = 10; i<=25; i++){
         test_arbol(i);
     }
