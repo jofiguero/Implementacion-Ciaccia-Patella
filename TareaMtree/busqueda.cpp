@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
-#include "aux_fun.cpp"
+#include "ss.cpp"
 #include <tuple>
 
 

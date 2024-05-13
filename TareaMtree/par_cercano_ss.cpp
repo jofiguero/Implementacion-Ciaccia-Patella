@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "aux_functions_cp.cpp"
+#include "aux_ss.cpp"
 
 
 using namespace std;

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
-#include "par_cercano_ss.cpp"
+#include "cp.cpp"
 
 int B = 4096 / sizeof(Entry);
 int b = 0.5 * B;

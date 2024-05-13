@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "aux_functions_ss.cpp"
 #include <vector>
 #include <set>
 #include <algorithm>
 #include <cmath>
+#include "par_cercano_ss.cpp"
 
 using namespace std; 
 
