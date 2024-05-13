@@ -3,6 +3,7 @@
 using namespace std;
 #include "clases.cpp"
 
+
 int point_in_entries(Point p, set<Entry> E){
     set<Entry>::iterator itr;
     for (itr = E.begin(); itr!= E.end(); itr++){

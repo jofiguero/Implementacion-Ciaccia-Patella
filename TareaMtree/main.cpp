@@ -158,7 +158,9 @@ void exp_arbol_CP(int n){
 
 int main(){
     for (int i = 10; i<=25; i++){
+        cout <<"CP:"<<endl;
         exp_arbol_CP(i);
+        cout <<"SS:"<<endl;
         exp_arbol_ss(i);
     }
     return 0;
